@@ -1,0 +1,7 @@
+{
+  "name": "tsic-teams",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
