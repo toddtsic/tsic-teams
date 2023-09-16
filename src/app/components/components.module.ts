@@ -4,8 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { ShowHidePasswordComponent } from './show-hide-password/show-hide-password.component';
-// import { AspectRatioComponent } from './aspect-ratio/aspect-ratio.component';
-// import { ImageShellComponent } from './image-shell/image-shell.component';
+import { AspectRatioComponent } from './aspect-ratio/aspect-ratio.component';
+import { ImageShellComponent } from './image-shell/image-shell.component';
 
 @NgModule({
   imports: [
@@ -16,13 +16,13 @@ import { ShowHidePasswordComponent } from './show-hide-password/show-hide-passwo
   ],
   declarations: [
     ShowHidePasswordComponent,
-    // AspectRatioComponent,
-    // ImageShellComponent
+    AspectRatioComponent,
+    ImageShellComponent
   ],
   exports: [
     ShowHidePasswordComponent,
-    // AspectRatioComponent,
-    // ImageShellComponent
+    AspectRatioComponent,
+    ImageShellComponent
   ]
 })
 export class ComponentsModule {}

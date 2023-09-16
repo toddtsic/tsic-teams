@@ -13,7 +13,11 @@ const routes: Routes = [
   {
     path: 'roles',
     loadChildren: () => import('./pages/roles/roles.module').then( m => m.RolesPageModule)
-  }
+  },
+  {
+    path: 'contact-info',
+    loadChildren: () => import('./pages/tabs/tab1/contact-info/contact-info.module').then( m => m.ContactInfoPageModule)
+  },
 ];
 @NgModule({
   imports: [

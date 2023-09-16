@@ -1,0 +1,105 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelModal()" color="primary">
+        <ion-icon
+          name="chevron-back"
+        ></ion-icon>Back
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="contact-info-content">
+  <ion-row class="user-details-wrapper">
+    <ion-col size="4">
+      <app-aspect-ratio [ratio]="{w: 1, h: 1}">
+        <app-image-shell
+          class="user-avatar"
+          animation="spinner"
+          [src]="player.headshotUrl"
+          [alt]="'player image'"
+        ></app-image-shell>
+      </app-aspect-ratio>
+    </ion-col>
+    <ion-col class="user-info-wrapper" size="8">
+      <h3 class="user-name">
+        {{ player.firstName | titlecase }} {{ player.lastName | titlecase }}
+        (#{{player.uniformNumber}})
+      </h3>
+      <h4>{{player.school}}</h4>
+    </ion-col>
+  </ion-row>
+  <ion-row class="user-details-wrapper" *ngIf="player.cellphone">
+    <ion-col size="2">
+      <ion-label class="preference-name">Cell</ion-label>
+    </ion-col>
+    <ion-col size="6">
+      <a [href]="'tel:' + player.cellphone" class="preference-value">{{player.cellphone}}</a>
+    </ion-col>
+    <ion-col size="2">
+      <a [href]="'sms:' + player.cellphone">
+        <ion-icon size="large" name="chatbubble-ellipses-outline"></ion-icon>
+      </a>
+    </ion-col>
+    <ion-col size="2">
+      <a [href]="'tel:' + player.cellphone">
+        <ion-icon size="large" name="call-outline"></ion-icon>
+      </a>
+    </ion-col>
+  </ion-row>
+  <ion-row class="user-details-wrapper" *ngIf="player.email">
+    <ion-col size="2">
+      <ion-label class="preference-name">E-Mail</ion-label>
+    </ion-col>
+    <ion-col size="8">
+      <a [href]="'mailto:' + player.email">
+        <ion-label class="preference-value">{{player.email}}</ion-label>
+      </a>
+    </ion-col>
+    <ion-col size="2">
+      <a [href]="'mailto:' + player.email">
+        <ion-icon size="large" name="mail-outline"></ion-icon>
+      </a>
+    </ion-col>
+  </ion-row>
+  <ion-row class="user-preferences-wrapper">
+    <ion-col size="6">
+      <ion-label class="preference-value">{{player.mom}}</ion-label>
+    </ion-col>
+    <ion-col size="2" *ngIf="player.momCellphone">
+      <a [href]="'tel:' + player.momCellphone">
+        <ion-icon size="large" name="call-outline"></ion-icon>
+      </a>
+    </ion-col>
+    <ion-col size="2" *ngIf="player.momCellphone">
+      <a [href]="'sms:' + player.momCellphone">
+        <ion-icon size="large" name="chatbubble-ellipses-outline"></ion-icon>
+      </a>
+    </ion-col>
+    <ion-col size="2" *ngIf="player.momEmail">
+      <a [href]="'mailto:' + player.momEmail">
+        <ion-icon size="large" name="mail-outline"></ion-icon>
+      </a>
+    </ion-col>
+  </ion-row>
+  <ion-row class="user-preferences-wrapper">
+    <ion-col size="6">
+      <ion-label class="preference-value">{{player.dad}}</ion-label>
+    </ion-col>
+    <ion-col size="2" *ngIf="player.dadCellphone">
+      <a [href]="'tel:' + player.dadCellphone">
+        <ion-icon size="large" name="call-outline"></ion-icon>
+      </a>
+    </ion-col>
+    <ion-col size="2" *ngIf="player.dadCellphone">
+      <a [href]="'sms:' + player.dadCellphone">
+        <ion-icon size="large" name="chatbubble-ellipses-outline"></ion-icon>
+      </a>
+    </ion-col>
+    <ion-col size="2" *ngIf="player.dadEmail">
+      <a [href]="'mailto:' + player.dadEmail">
+        <ion-icon size="large" name="mail-outline"></ion-icon>
+      </a>
+    </ion-col>
+  </ion-row>
+</ion-content>

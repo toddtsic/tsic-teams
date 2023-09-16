@@ -7,6 +7,7 @@ import { StorageService } from 'src/app/services/storage.service';
 import { RosterService } from 'src/app/services/roster.service';
 import { ITeamChat_User_RoleData } from 'src/app/models/roles-models';
 import { ITeamRosterMobile_ViewModel, ITeamRosterPlayer_Mobile_ViewModel } from 'src/app/models/roster';
+import { ContactInfoPage } from './contact-info/contact-info.page';
 
 @Component({
   selector: 'app-roster',
@@ -89,13 +90,13 @@ export class Tab1Page {
   }
 
   async showDetails(playerRecord: ITeamRosterPlayer_Mobile_ViewModel) {
-    // const modal = await this.modalCtrl.create({
-    //   component: ContactInfoPage,
-    //   componentProps: {
-    //     'player': playerRecord
-    //   }
-    // });
-    // return await modal.present();
+    const modal = await this.modalCtrl.create({
+      component: ContactInfoPage,
+      componentProps: {
+        'player': playerRecord
+      }
+    });
+    return await modal.present();
   }
 
   async updateHeadshot(playerRecord: ITeamRosterPlayer_Mobile_ViewModel) {
