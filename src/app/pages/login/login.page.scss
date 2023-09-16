@@ -1,0 +1,11 @@
+::ng-deep ion-input .label-text{
+  color: var(--ion-color-primary);
+  padding-bottom: 1rem;
+}
+
+.error-message {
+  color: var(--ion-color-danger);
+  padding-left:16px;
+  padding-top:2px;
+}
+  

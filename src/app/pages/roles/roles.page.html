@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Available Teams</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="signOut()">
+        <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="roles-content">
+  <ion-list>
+    <ion-item-group *ngFor="let group of availableRoles$ | async">
+      <ion-item-divider sticky>
+        <ion-label class="ion-padding"> {{ group.groupName }} </ion-label>
+      </ion-item-divider>
+      <ion-item
+        *ngFor="let role of group.listRoles"
+        (click)="roleClicked(role)"
+        class="role-item"
+      >
+        <ion-row class="role-item-wrapper ion-padding">
+          <ion-col class="details-wrapper">
+            <h2 class="details-name">{{role.jobName}}</h2>
+            <p class="details-description">
+              {{role.agegroupName}}:{{role.teamName}}
+            </p>
+          </ion-col>
+          <ion-col size="2">
+            <img class="job-logo" width="80" [src]="role.jobLogoUrl" />
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+</ion-content>

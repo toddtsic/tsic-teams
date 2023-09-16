@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Log In</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="login-content">
+  <h2 class="ion-text-center"><ion-text color="primary">TeamSportsInfo.com</ion-text></h2>
+   <h4 class="ion-text-center"><ion-text color="secondary">TSIC-Teams App</ion-text></h4>
+
+  <form [formGroup]="credentialsForm">
+    <div class="ion-padding">
+      <ion-input
+        fill="outline"
+        shape="round"
+        counter="true"
+        label="Username"
+        labelPlacement="floating"
+        placeholder="Username"
+        formControlName="username"
+        type="text"
+        autofocus
+        class="ion-padding"
+      ></ion-input>
+    </div>
+    <div
+      *ngIf="this.credentialsForm.controls['username'].touched && this.credentialsForm.controls['username'].invalid"
+    >
+      <div
+        class="ion-padding"
+        *ngIf="this.credentialsForm.controls['username'].errors?.required"
+      >
+        <ion-text color="danger">Username is required.</ion-text>
+      </div>
+    </div>
+    <div class="ion-padding">
+        <ion-input
+          fill="outline"
+          shape="round"
+          counter="true"
+          label="Password"
+          labelPlacement="floating"
+          placeholder="Password"
+          type="password"
+          formControlName="password"
+          clearInput="true"
+          class="ion-padding"
+        ></ion-input>
+    </div>
+    <div
+      *ngIf="(this.credentialsForm.controls['password'].dirty || this.credentialsForm.controls['password'].touched) && this.credentialsForm.controls['password'].errors"
+      class="error-message"
+    >
+      <span *ngIf="this.credentialsForm.controls['password'].errors?.required">Password is required</span>
+      <span *ngIf="this.credentialsForm.controls['password'].errors?.minlength"
+        >Password needs to be 6 characters</span
+      >
+    </div>
+    <div class="ion-text-center">
+      <ion-button class="login-btn ion-padding" (click)="signIn()" 
+        >Log in</ion-button
+      >
+    </div>
+  </form>
+</ion-content>
