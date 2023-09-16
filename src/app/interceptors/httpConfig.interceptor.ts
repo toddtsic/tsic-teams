@@ -56,7 +56,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
                               this.hideLoader();
                               this._router.navigate(['login']);
                               this._errorsService.handleError('warning', 'Network Error', 6000, 'top', error);
-                              return throwError(error);
+                              return throwError(()=>new Error(error));
                           })
                       );
               }));
