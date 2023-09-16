@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Tab2Page } from './tab2.page';
 
 import { Tab2PageRoutingModule } from './tab2-routing.module';
-import { ExploreContainerComponentModule } from 'src/app/explore-container/explore-container.module';
+import { ExploreContainerComponentModule } from 'src/app/components/explore-container/explore-container.module';
 
 @NgModule({
   imports: [
