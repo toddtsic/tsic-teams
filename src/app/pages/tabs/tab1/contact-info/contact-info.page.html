@@ -1,4 +1,4 @@
-<ion-header class="ion-no-border">
+<ion-header >
   <ion-toolbar>
     <ion-buttons slot="end">
       <ion-button (click)="cancelModal()" color="primary">
@@ -9,8 +9,9 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content class="contact-info-content">
-  <ion-row class="user-details-wrapper">
+<ion-content class="">
+  
+  <ion-row class="ion-padding-top">
     <ion-col size="4">
       <app-aspect-ratio [ratio]="{w: 1, h: 1}">
         <app-image-shell
@@ -21,20 +22,20 @@
         ></app-image-shell>
       </app-aspect-ratio>
     </ion-col>
-    <ion-col class="user-info-wrapper" size="8">
-      <h3 class="user-name">
+    <ion-col class="" size="8">
+      <h3 class="">
         {{ player.firstName | titlecase }} {{ player.lastName | titlecase }}
         (#{{player.uniformNumber}})
       </h3>
       <h4>{{player.school}}</h4>
     </ion-col>
   </ion-row>
-  <ion-row class="user-details-wrapper" *ngIf="player.cellphone">
-    <ion-col size="2">
-      <ion-label class="preference-name">Cell</ion-label>
+  <ion-row class="" *ngIf="player.cellphone">
+    <ion-col size="2" class="ion-text-right">
+      <ion-label class="">Cell</ion-label>
     </ion-col>
     <ion-col size="6">
-      <a [href]="'tel:' + player.cellphone" class="preference-value">{{player.cellphone}}</a>
+      <a [href]="'tel:' + player.cellphone" class="">{{player.cellphone}}</a>
     </ion-col>
     <ion-col size="2">
       <a [href]="'sms:' + player.cellphone">
@@ -47,13 +48,13 @@
       </a>
     </ion-col>
   </ion-row>
-  <ion-row class="user-details-wrapper" *ngIf="player.email">
-    <ion-col size="2">
-      <ion-label class="preference-name">E-Mail</ion-label>
+  <ion-row class="ion-padding-bottom" *ngIf="player.email">
+    <ion-col size="2" class="ion-text-right">
+      <ion-label class="">E-Mail</ion-label>
     </ion-col>
     <ion-col size="8">
       <a [href]="'mailto:' + player.email">
-        <ion-label class="preference-value">{{player.email}}</ion-label>
+        <ion-label class="">{{player.email}}</ion-label>
       </a>
     </ion-col>
     <ion-col size="2">
@@ -62,9 +63,9 @@
       </a>
     </ion-col>
   </ion-row>
-  <ion-row class="user-preferences-wrapper">
+  <ion-row class="ion-padding-top">
     <ion-col size="6">
-      <ion-label class="preference-value">{{player.mom}}</ion-label>
+      <ion-label class="">{{player.mom}}</ion-label>
     </ion-col>
     <ion-col size="2" *ngIf="player.momCellphone">
       <a [href]="'tel:' + player.momCellphone">
@@ -82,9 +83,9 @@
       </a>
     </ion-col>
   </ion-row>
-  <ion-row class="user-preferences-wrapper">
+  <ion-row class="">
     <ion-col size="6">
-      <ion-label class="preference-value">{{player.dad}}</ion-label>
+      <ion-label class="">{{player.dad}}</ion-label>
     </ion-col>
     <ion-col size="2" *ngIf="player.dadCellphone">
       <a [href]="'tel:' + player.dadCellphone">

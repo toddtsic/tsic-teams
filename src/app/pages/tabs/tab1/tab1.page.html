@@ -37,7 +37,7 @@
           </ion-row>
 
           <ion-row class="roster-item-wrapper" *ngIf="staff.cellphone">
-            <ion-col class="ion-text-left">
+            <ion-col class="ion-text-left ion-padding-top">
               <a [href]="'tel:' + staff.cellphone" class="coach-link">{{staff.cellphone}}</a>
             </ion-col>
             <ion-col size="2">
@@ -52,12 +52,12 @@
             </ion-col>
           </ion-row>
           <ion-row class="roster-item-wrapper" *ngIf="staff.email">
-            <ion-col class="ion-text-left">
+            <ion-col class="ion-text-left ion-padding-top">
               <a [href]="'mailto:' + staff.email" class="coach-link">
                 <ion-label class="preference-value">{{staff.email}}</ion-label>
               </a>
             </ion-col>
-            <ion-col size="2">
+            <ion-col size="2" class="ion-padding-top">
               <a [href]="'mailto:' + staff.email">
                 <ion-icon size="large" name="mail-outline"></ion-icon>
               </a>
@@ -89,8 +89,7 @@
             <p class="details-description">{{ player.dad | titlecase}}</p>
           </ion-col>
           <ion-col size="3">
-            <ion-button (click)="showDetails(player)" color="secondary" expand="block" size="small" mode="ios">Contact
-              Links
+            <ion-button (click)="showDetails(player)" color="secondary" size="small" mode="ios">Contacts
               <!-- <ion-icon slot="start" name="information-circle"></ion-icon> -->
             </ion-button>
             <ion-button *ngIf="userData.userId === player.userId" (click)="updateHeadshot(player)" expand="block"
