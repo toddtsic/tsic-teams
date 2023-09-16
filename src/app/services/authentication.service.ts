@@ -33,6 +33,7 @@ export class AuthenticationService {
       }
     
       Logout(username:string): Observable<any> {
+        debugger;
         return this.http.get<any>(`${environment.apiUrl}/api/Logout/Logout/${username}`)
           .pipe(
             tap(resp => {

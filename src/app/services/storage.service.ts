@@ -40,6 +40,7 @@ export class StorageService {
   }
 
   public async clear() {
+    debugger;
     return await this._storage?.clear();
   }
 

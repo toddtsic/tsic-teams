@@ -1,17 +1,105 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-toolbar color="light">
+  <ion-buttons slot="end">
+    <ion-tab-button (click)="gotoEmail()">
+      <ion-icon size="large" name="mail-open-outline"></ion-icon>
+      <span>Email All</span>
+    </ion-tab-button>
+  </ion-buttons>
+  <!-- <ion-buttons slot="end">
+    <ion-tab-button (click)="gotoSMS()">
+      <ion-icon size="large" name="chatbubble-outline"></ion-icon>
+      <span>Text All</span>
+    </ion-tab-button>
+  </ion-buttons> -->
+  <ion-title *ngIf="userData" class="ion-padding ion-text-center">Team Roster
+  </ion-title>
+</ion-toolbar>
+<ion-content class="rosters-content">
+  <ng-container *ngIf="teamRoster">
+    <ion-item-group *ngIf="teamRoster?.staff.length">
+      <ion-item-divider sticky class="my-item-divider">
+        <ion-label>Staff</ion-label>
+      </ion-item-divider>
+      <ion-item class="roster-item" lines="full" *ngFor="let staff of teamRoster?.staff">
+        <ion-grid>
+          <ion-row class="roster-item-wrapper">
+            <ion-col size="2">
+              <app-aspect-ratio [ratio]="{w: 1, h: 1}">
+                <app-image-shell class="roster-image" [src]="staff.headshotUrl" [alt]="'staff image'"></app-image-shell>
+              </app-aspect-ratio>
+            </ion-col>
+            <ion-col class="details-wrapper">
+              <h2 class="details-name">
+                {{ staff.firstName }} {{ staff.lastName }}
+              </h2>
+            </ion-col>
+            <ion-col size="2" class="date-wrapper"> </ion-col>
+          </ion-row>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+          <ion-row class="roster-item-wrapper" *ngIf="staff.cellphone">
+            <ion-col class="ion-text-left">
+              <a [href]="'tel:' + staff.cellphone" class="coach-link">{{staff.cellphone}}</a>
+            </ion-col>
+            <ion-col size="2">
+              <a [href]="'tel:' + staff.cellphone">
+                <ion-icon size="large" name="call-outline"></ion-icon>
+              </a>
+            </ion-col>
+            <ion-col size="2">
+              <a [href]="'sms:' + staff.cellphone">
+                <ion-icon size="large" name="chatbubble-ellipses-outline"></ion-icon>
+              </a>
+            </ion-col>
+          </ion-row>
+          <ion-row class="roster-item-wrapper" *ngIf="staff.email">
+            <ion-col class="ion-text-left">
+              <a [href]="'mailto:' + staff.email" class="coach-link">
+                <ion-label class="preference-value">{{staff.email}}</ion-label>
+              </a>
+            </ion-col>
+            <ion-col size="2">
+              <a [href]="'mailto:' + staff.email">
+                <ion-icon size="large" name="mail-outline"></ion-icon>
+              </a>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group *ngIf="teamRoster?.players.length">
+      <ion-item-divider sticky>
+        <ion-label>Players</ion-label>
+      </ion-item-divider>
+      <ion-item class="roster-item ion-padding" lines="full" *ngFor="let player of teamRoster?.players">
+        <ion-row class="roster-item-wrapper">
+          <ion-col size="2">
+            <app-aspect-ratio [ratio]="{w: 1, h: 1}">
+              <app-image-shell class="roster-image" [src]="player.headshotUrl" [alt]="'user image'"
+                (click)="updateHeadshot(player)"></app-image-shell>
+            </app-aspect-ratio>
+          </ion-col>
+          <ion-col class="details-wrapper">
+            <h2 class="details-name">
+              <!-- {{player.headshotUrl}} -->
+              {{ player.firstName | titlecase }} {{ player.lastName | titlecase }}
+              <span *ngIf="player.uniformNumber">
+                (#{{player.uniformNumber}})</span>
+            </h2>
+            <p class="details-description">{{ player.mom | titlecase }}</p>
+            <p class="details-description">{{ player.dad | titlecase}}</p>
+          </ion-col>
+          <ion-col size="3">
+            <ion-button (click)="showDetails(player)" color="secondary" expand="block" size="small" mode="ios">Contact
+              Links
+              <!-- <ion-icon slot="start" name="information-circle"></ion-icon> -->
+            </ion-button>
+            <ion-button *ngIf="userData.userId === player.userId" (click)="updateHeadshot(player)" expand="block"
+              color="tertiary" size="small">My Photo
+              <!-- <ion-icon slot="start" name="camera-outline"></ion-icon> -->
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-item-group>
+  </ng-container>
 </ion-content>

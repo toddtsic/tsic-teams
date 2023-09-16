@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { Drivers } from '@ionic/storage';
 import { HttpConfigInterceptor } from './interceptors/httpConfig.interceptor';
 
 @NgModule({
@@ -18,7 +19,8 @@ import { HttpConfigInterceptor } from './interceptors/httpConfig.interceptor';
     AppRoutingModule, 
     HttpClientModule,
     IonicStorageModule.forRoot({
-      name: '__tsicteamchatdb'
+      name: '__tsicteamchatdb',
+      driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage]
     }),
   ],
   providers: [
