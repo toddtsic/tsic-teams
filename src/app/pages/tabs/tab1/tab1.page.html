@@ -1,20 +1,22 @@
-<ion-toolbar color="light">
-  <ion-buttons slot="end">
-    <ion-tab-button (click)="gotoEmail()">
-      <ion-icon size="large" name="mail-open-outline"></ion-icon>
-      <span>Email All</span>
-    </ion-tab-button>
-  </ion-buttons>
- 
-  <!-- <ion-buttons slot="end">
-    <ion-tab-button (click)="gotoSMS()">
-      <ion-icon size="large" name="chatbubble-outline"></ion-icon>
-      <span>Text All</span>
-    </ion-tab-button>
-  </ion-buttons> -->
-  <ion-title *ngIf="userData" class="ion-padding ion-text-center">Team Roster
-  </ion-title>
-</ion-toolbar>
+<ion-header [translucent]="true">
+  <ion-toolbar color="light">
+    <ion-buttons slot="end">
+      <ion-tab-button (click)="gotoEmail()">
+        <ion-icon size="large" name="mail-open-outline"></ion-icon>
+        <span>Email All</span>
+      </ion-tab-button>
+    </ion-buttons>
+  
+    <!-- <ion-buttons slot="end">
+      <ion-tab-button (click)="gotoSMS()">
+        <ion-icon size="large" name="chatbubble-outline"></ion-icon>
+        <span>Text All</span>
+      </ion-tab-button>
+    </ion-buttons> -->
+    <ion-title *ngIf="userData" class="ion-padding ion-text-center">Team Roster
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content class="rosters-content">
   <ng-container *ngIf="teamRoster">
     <ion-item-group *ngIf="teamRoster?.staff.length">

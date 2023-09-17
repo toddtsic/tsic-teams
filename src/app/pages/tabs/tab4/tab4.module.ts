@@ -20,7 +20,7 @@ import { AgendaService, DayService, MonthAgendaService, MonthService, ScheduleMo
     ScheduleModule
   ],
   providers: [
-    DayService, WeekService, MonthService, AgendaService, MonthAgendaService, TimelineViewsService   
+    DayService, WeekService, MonthService, WorkWeekService, AgendaService, MonthAgendaService, TimelineViewsService   
   ],
   declarations: [Tab4Page]
 })

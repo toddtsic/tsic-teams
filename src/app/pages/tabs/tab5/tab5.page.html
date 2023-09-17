@@ -1,12 +1,14 @@
-<ion-toolbar color="light">
-  <ion-buttons slot="end">
-    <ion-button (click)="openModal()" color="primary">
-      <ion-icon size="large" name="add-circle-outline"></ion-icon>
-    </ion-button>
-  </ion-buttons>
-  <ion-title *ngIf="userData" class="ion-padding ion-text-center">Team Push Notifications
-  </ion-title>
-</ion-toolbar>
+<ion-header [translucent]="true">
+  <ion-toolbar color="light">
+    <ion-buttons slot="end">
+      <ion-button (click)="openModal()" color="primary">
+        <ion-icon size="large" name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="userData" class="ion-padding ion-text-center">Team Push Notifications
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content class="ion-padding">
   <ion-list>
     <ion-item *ngFor="let push of items">

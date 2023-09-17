@@ -1,7 +1,9 @@
-<ion-toolbar color="light">
-  <ion-title *ngIf="userData" class="ion-padding ion-text-center">Team Chat
-  </ion-title>
-</ion-toolbar>
+<ion-header [translucent]="true">
+  <ion-toolbar color="light">
+    <ion-title *ngIf="userData" class="ion-padding ion-text-center">Team Chat
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content class="ion-padding">
   <ion-grid *ngIf="userData && chatService.teamChatData?.length">
     <ion-infinite-scroll position="top" (ionInfinite)="loadData($event)">
