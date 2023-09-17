@@ -35,6 +35,7 @@
     "@ionic/pwa-elements": "^3.2.2",
     "@ionic/storage-angular": "^4.0.0",
     "@microsoft/signalr": "^7.0.11",
+    "@syncfusion/ej2-angular-schedule": "^23.1.36",
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
