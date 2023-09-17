@@ -8,6 +8,7 @@ import { RosterService } from 'src/app/services/roster.service';
 import { ITeamChat_User_RoleData } from 'src/app/models/roles-models';
 import { ITeamRosterMobile_ViewModel, ITeamRosterPlayer_Mobile_ViewModel } from 'src/app/models/roster';
 import { ContactInfoPage } from './contact-info/contact-info.page';
+import { HeadshotPage } from '../../headshot/headshot.page';
 
 @Component({
   selector: 'app-roster',
@@ -100,18 +101,18 @@ export class Tab1Page {
   }
 
   async updateHeadshot(playerRecord: ITeamRosterPlayer_Mobile_ViewModel) {
-    // if (this.userData.userId === playerRecord.userId) {
-    //   const modal = await this.modalCtrl.create({
-    //     component: HeadshotPage
-    //   });
-    //   modal.onDidDismiss()
-    //     .then((data: any) => {
-    //       const thisUserId = this.userData.userId;
-    //       playerRecord.headshotUrl = data.data.newHeadshotUrl;
-    //     });
+    if (this.userData.userId === playerRecord.userId) {
+      const modal = await this.modalCtrl.create({
+        component: HeadshotPage
+      });
+      modal.onDidDismiss()
+        .then((data: any) => {
+          const thisUserId = this.userData.userId;
+          playerRecord.headshotUrl = data.data.newHeadshotUrl;
+        });
 
-    //   return await modal.present();
-    // }
+      return await modal.present();
+    }
   }
 
   async openTeamLinks() {

@@ -7,6 +7,8 @@ import { Tab1Page } from './tab1.page';
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { ExploreContainerComponentModule } from 'src/app/components/explore-container/explore-container.module';
+import { HeadshotPage } from '../../headshot/headshot.page';
+import { HeadshotPageModule } from '../../headshot/headshot.module';
 
 @NgModule({
   imports: [
@@ -15,7 +17,8 @@ import { ExploreContainerComponentModule } from 'src/app/components/explore-cont
     FormsModule,
     ExploreContainerComponentModule,
     Tab1PageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    HeadshotPageModule
   ],
   declarations: [Tab1Page]
 })

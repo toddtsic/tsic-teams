@@ -1,0 +1,59 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Update Headshot</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()" color="dark">
+        <ion-icon
+          name="chevron-back"
+        ></ion-icon>Back
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-text-center ion-padding">
+    <ion-button
+      color="success"
+      size="small"
+      (click)="updateHeadshot('fromCamera')"
+    >
+      <ion-icon
+        slot="start"
+        [name]="isIOS ? 'camera-outline' : 'camera-sharp'"
+      ></ion-icon>
+      Take Selfie</ion-button
+    >
+    <ion-button
+      color="warning"
+      size="small"
+      (click)="updateHeadshot('fromGallery')"
+    >
+      <ion-icon
+        slot="start"
+        [name]="isIOS ? 'camera-outline' : 'images-sharp'"
+      ></ion-icon>
+      From Gallery</ion-button
+    >
+    <ion-button color="danger" size="small" (click)="updateHeadshot('delete')">
+      <ion-icon
+        slot="start"
+        [name]="isIOS ? 'camera-outline' : 'trash-sharp'"
+      ></ion-icon>
+      Delete</ion-button
+    >
+  </div>
+  <div class="ion-padding">
+    <app-aspect-ratio [ratio]="{w: 1, h: 1}">
+      <app-image-shell
+        class="roster-image"
+        [src]="headshotUrl"
+        [alt]="'user image'"
+      ></app-image-shell>
+    </app-aspect-ratio>
+
+  </div>
+  <div class="ion-padding">
+    <ion-button expand="block" (click)="dismissModal()">Return To Roster</ion-button>
+  </div>
+</ion-content>
