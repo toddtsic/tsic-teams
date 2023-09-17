@@ -4,6 +4,9 @@ import { environment } from 'src/environments/environment';
 import { Platform } from '@ionic/angular';
 import { Capacitor } from '@capacitor/core';
 import { App } from '@capacitor/app';
+import { ActionPerformed, PushNotifications, PushNotificationSchema, Token } from '@capacitor/push-notifications';
+import { SwapPhone_DeviceTokens_RequestModel } from './models/authentication-models';
+import { ErrorsService } from './services/errors.service';
 
 @Component({
   selector: 'app-root',
@@ -28,6 +31,7 @@ export class AppComponent implements OnInit{
 
   constructor(
     private platform: Platform,
+    private errorsService:ErrorsService,
     private storageService: StorageService, // must have to cause initialization of storageService
   ) {  
   }
@@ -46,9 +50,93 @@ export class AppComponent implements OnInit{
 
         const thisPlatform = Capacitor.getPlatform();
         if (thisPlatform !== 'web') {
-          // this.initPushNotifications();
+          this.initPushNotifications();
         }
       });
   }
+
+  initPushNotifications() {
+    // Request permission to use push notifications
+    // iOS will prompt user and return if they granted permission or not
+    // Android will just grant without prompting
+    PushNotifications.requestPermissions().then(result => {
+      if (result.receive === 'granted') {
+        // Register with Apple / Google to receive push via APNS/FCM
+        PushNotifications.register()
+          .then((res) => {
+          });
+      } else {
+        // Show some error
+        console.log('no permission for push:', result);
+      }
+
+      PushNotifications.addListener(
+        'registration',
+        async (token: Token) => {
+          const currentDeviceToken = await this.storageService.getDevice_PushNotification_Token();
+
+          console.log('PushNotification.register token:', token);
+          console.log('Device token from storage:', currentDeviceToken);
+
+          if (currentDeviceToken && currentDeviceToken != token.value) {
+            const requestModel: SwapPhone_DeviceTokens_RequestModel = {
+              oldDeviceToken: currentDeviceToken,
+              newDeviceToken: token.value
+            }
+            this.storageService.swapPhone_DeviceTokens(requestModel)
+              .subscribe();
+          };
+
+          this.storageService.setDevice_PushNotification_Token(token.value);
+        },
+      );
+
+      PushNotifications.addListener('registrationError', (error: any) => {
+        alert('Error on push notification registration: ' + JSON.stringify(error));
+      });
+
+      PushNotifications.addListener(
+        'pushNotificationReceived',
+        async (notification: PushNotificationSchema) => {
+          await this.processReceivedNotification(notification);
+          // alert('Push received: ' + JSON.stringify(notification));
+        },
+      );
+
+      PushNotifications.addListener(
+        'pushNotificationActionPerformed',
+        async (notification: ActionPerformed) => {
+          // alert('Push action performed: ' + JSON.stringify(notification));
+          await this.processReceivedNotification(notification.notification);
+        },
+      );
+
+    });
+  }
+
+  async processReceivedNotification(notification: PushNotificationSchema) {
+    const data = notification.data;
+
+    if (data?.jobName) {
+      {
+        const header = (this.isIOS) ? notification.data.aps.alert.title : notification.title;
+        let body = (this.isIOS) ? notification.data.aps.alert.body : notification.body;
+        if (data.teamName) {
+          body = body;
+        }
+
+        this.errorsService.handleError(
+          'success',
+          header,
+          5000,
+          'bottom',
+          {
+            message: body
+          }
+        );
+      }
+    }
+  }
+
 
 }
