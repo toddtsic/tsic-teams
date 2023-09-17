@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()" color="warning">
+        <ion-icon name="chevron-back"></ion-icon>Close
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-padding text-center">
+      Add Link
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <form [formGroup]="form" (ngSubmit)="addLink()" class="ion-padding-top">
+    <ion-item class="input-item">
+      <ion-label [color]="'tertiary'" position="floating">Link Text</ion-label>
+      <ion-input placeholder="link text here" color="primary" formControlName="linkText" clearInput></ion-input>
+    </ion-item>
+    <div class="error-container">
+      <ng-container *ngFor="let validation of formValidators.linkText">
+        <div class="error-message"
+          *ngIf="form.get('linkText').hasError(validation.type) && (form.get('linkText').dirty || form.get('linkText').touched)">
+          <span>{{ validation.message }}</span>
+        </div>
+      </ng-container>
+    </div>
+    <ion-item class="input-item">
+      <ion-label [color]="'tertiary'" position="floating">Link Url</ion-label>
+      <ion-input placeholder="for ex: https://www.somewhere.com" color="primary" formControlName="linkUrl" clearInput></ion-input>
+    </ion-item>
+    <div class="error-container">
+      <ng-container *ngFor="let validation of formValidators.linkUrl">
+        <div class="error-message"
+          *ngIf="form.get('linkUrl').hasError(validation.type) && (form.get('linkUrl').dirty || form.get('linkUrl').touched)">
+          <span>{{ validation.message }}</span>
+        </div>
+      </ng-container>
+    </div>
+    <ion-item class="input-item ion-padding-top" *ngIf="roleName==='Director'">
+      <ion-label color="tertiary">Link applied to ALL TEAMS</ion-label>
+      <ion-checkbox color="tertiary" formControlName="bAllJobTeams"></ion-checkbox>
+    </ion-item>
+
+
+    <ion-button class="reset-password-btn ion-margin-top" type="submit" expand="block" [disabled]="!form.valid">Submit</ion-button>
+  </form>
+</ion-content>
