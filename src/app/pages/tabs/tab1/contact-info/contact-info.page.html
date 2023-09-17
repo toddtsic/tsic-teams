@@ -1,7 +1,9 @@
-<ion-header >
-  <ion-toolbar>
+<ion-header [translucent]="true">
+  <ion-toolbar color="tertiary">
+    <ion-title class="ion-padding ion-text-center">Player Contacts
+    </ion-title>    
     <ion-buttons slot="end">
-      <ion-button (click)="cancelModal()" color="primary">
+      <ion-button (click)="cancelModal()">
         <ion-icon
           name="chevron-back"
         ></ion-icon>Back
