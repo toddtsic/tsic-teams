@@ -7,6 +7,7 @@ import { App } from '@capacitor/app';
 import { ActionPerformed, PushNotifications, PushNotificationSchema, Token } from '@capacitor/push-notifications';
 import { SwapPhone_DeviceTokens_RequestModel } from './models/authentication-models';
 import { ErrorsService } from './services/errors.service';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-root',
@@ -37,6 +38,8 @@ export class AppComponent implements OnInit{
   }
 
   async ngOnInit(): Promise<void> {
+    await SplashScreen.show();    
+  
     if (environment.production) {
       const ai = await App.getInfo();
       this.appVersion = ai.version;
@@ -46,12 +49,11 @@ export class AppComponent implements OnInit{
 
     this.platform.ready()
       .then(async (val) => {
-
-
         const thisPlatform = Capacitor.getPlatform();
         if (thisPlatform !== 'web') {
           this.initPushNotifications();
         }
+        await SplashScreen.hide();    
       });
   }
 

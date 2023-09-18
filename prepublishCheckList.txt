@@ -1,0 +1,175 @@
+Latest Ionic Deploy Procedures
+
+updating mapkit jwt
+  at https://developer.apple.com/account/resources/authkeys/list, revoke MapKit Key and remake
+  at https://maps.developer.apple.com/ generate new jwt MAPKIT_TOKEN
+  in ionic add token to environment.prod.ts AND environment.ts
+
+xcode archive error: Command PhaseScriptExecution failed with a nonzero exit code
+  in terminal ==> ios/App
+  "pod deintegrate"
+  "pod install"
+  in xcode ==> product clean build folder
+  in xcode ==> App/Pods/Target Support Files/Pods-app/Pods-app-frameworks.sh around line 43
+        #source="$(readlink "${source}")"
+        source="$(readlink -f "${source}")"
+
+
+to debug on ios device
+  ionic cap run ios --livereload --external
+  in safari: developer/Todd's Iphone/ip-address
+  (will open up debugging panels)
+
+iOS
+  ionic cap copy ios --prod --release
+
+  ionic cap open ios
+
+  in xcode:
+    set app device: Any iOS Device (arm64)
+
+    up version in App.xcodeproj
+
+    product | archive
+
+    after upload complete
+      
+      in about 15 minutes you get an email that ready
+      
+      go to https://appstoreconnect.apple.com/apps and create release
+
+
+android
+  ionic cap copy android --prod --release
+
+  ionic cap open android
+
+  update versionName in: TOP android | app | build.gradle
+
+  update versionCode: build.gradle
+
+  build | Generate Signed Bundel/Apk
+
+  #AFTER UPDATING TO CAPACITOR 3 IT IS NO LONGER NECESSARY TO RUN SHELL SCRIPT TO SIGN AND ZIP ALIGN, GRADLE DOES IT ALL
+  //run command to sign apk: sh androidpostbuildscript.command
+  //  both passwords: tsic112000
+
+  go to: https://play.google.com/console/developers/5470731981823105771/app-list
+
+    left side: release | production
+
+    then create new release
+
+    // upload tsic-events.apk
+    upload app-release.apk  --after capacitor use the default build file
+
+    the command: capacitor-resources -p android
+    creates the correct android resource files in case they are lost.
+
+    you can pull a release using menu App bundel explorer
+
+
+
+
+
+
+
+
+https://play.google.com/store/apps/details?id=com.teamsportsinfo.tsicevents   
+ 
+commandline to screen capture from xcode simulator
+xcrun simctl io booted screenshot Screenshot.png
+
+for android deep links need cert sha256
+  keytool -list -v -keystore /Users/todd/Documents/Projects-Ionic/Certificates/tsicmobilegoogle.jks
+
+  SHA256: CE:33:31:E2:D1:68:1D:F4:3D:46:CE:10:9A:60:29:F8:D4:D6:9F:1B:B8:77:8D:AF:94:23:9A:75:FF:0E:8D:D3
+
+  Mobile Accessibility
+$ ionic cordova plugin add phonegap-plugin-mobile-accessibility
+$ npm install @ionic-native/mobile-accessibility
+
+For me, changing the current value of text zoom to 100% worked well: 
+this.mobileAccessibility.setTextZoom(100); – Cédric Françoys Nov 24 '20 at 13:53
+
+I face similar issue. I have done as below for best practice :
+
+this.platform.ready().then(()=>{
+   this.mobileAccessibility.getTextZoom().then((textZoom)=>{
+      if(textZoom>130){
+          this.mobileAccessibility.setTextZoom(130); 
+      }
+   }); 
+})
+
+Todds-MacMini:tsic-events todd$ npx cap update ios
+✔ Updating iOS plugins in 249.67ms
+  Found 1 Capacitor plugin for ios:
+    capacitor-sqlite (2.2.1-3)
+[info] installing missing dependency plugin https://github.com/apache/cordova-plugin-device.git
+[info] installing missing dependency plugin https://github.com/apache/cordova-plugin-network-information.git
+✔ Updating iOS plugins in 45.03ms
+  Found 7 Cordova plugins for ios
+    cordova-plugin-android-permissions (1.1.2)
+    cordova-plugin-calendar (5.1.5)
+    cordova-plugin-device (2.0.4-dev)
+    cordova-plugin-network-information (3.0.0-dev)
+    cordova-plugin-request-location-accuracy (2.3.0)
+    ionic-plugin-deeplinks (1.0.22)
+    phonegap-plugin-mobile-accessibility (1.0.5)
+✔ Updating iOS native dependencies with "pod install" (may take several minutes) in 9.94s
+⠸ update ios[warn] Plugin cordova-plugin-calendar requires you to add 
+  <key>CFBundleLocalizations</key>
+  <array>
+    <string>en</string>
+    <string>de</string>
+    <string>nl</string>
+    <string>fr</string>
+    <string>it</string>
+    <string>pt-BR</string>
+  </array>
+ to your Info.plist to work
+[warn] Plugin ionic-plugin-deeplinks might require you to add 
+    <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>$URL_SCHEME</string>
+      </array>
+    </dict>
+   in the existing CFBundleURLTypes entry of your Info.plist to work
+✔ update ios in 35.47s
+Update finished in 35.481s
+[warn] Plugin cordova-plugin-calendar requires you to add 
+  <key>NSContactsUsageDescription</key>
+  <string>$CONTACTS_USAGE_DESCRIPTION</string>
+ to your Info.plist to work
+Todds-MacMini:tsic-events todd$ npx cap update android
+✔ Updating Android plugins in 87.36ms
+  Found 1 Capacitor plugin for android:
+    capacitor-sqlite (2.2.1-3)
+  Found 7 Cordova plugins for android
+    cordova-plugin-android-permissions (1.1.2)
+    cordova-plugin-calendar (5.1.5)
+    cordova-plugin-device (2.0.4-dev)
+    cordova-plugin-network-information (3.0.0-dev)
+    cordova-plugin-request-location-accuracy (2.3.0)
+    ionic-plugin-deeplinks (1.0.22)
+    phonegap-plugin-mobile-accessibility (1.0.5)
+⠙ update android[info] plugin ionic-plugin-deeplinks requires to add 
+  <intent-filter>
+  <action android:name="android.intent.action.VIEW"/>
+  <category android:name="android.intent.category.DEFAULT"/>
+  <category android:name="android.intent.category.BROWSABLE"/>
+  <data android:scheme="$URL_SCHEME"/>
+</intent-filter> to your AndroidManifest.xml to work
+[info] plugin ionic-plugin-deeplinks requires to add 
+  <intent-filter android:autoVerify="true">
+  <action android:name="android.intent.action.VIEW"/>
+  <category android:name="android.intent.category.DEFAULT"/>
+  <category android:name="android.intent.category.BROWSABLE"/>
+  <data android:scheme="$DEEPLINK_SCHEME" android:host="$DEEPLINK_HOST" android:pathPrefix="$ANDROID_PATH_PREFIX"/>
+  <data android:scheme="$DEEPLINK_2_SCHEME" android:host="$DEEPLINK_2_HOST" android:pathPrefix="$ANDROID_2_PATH_PREFIX"/>
+  <data android:scheme="$DEEPLINK_3_SCHEME" android:host="$DEEPLINK_3_HOST" android:pathPrefix="$ANDROID_3_PATH_PREFIX"/>
+  <data android:scheme="$DEEPLINK_4_SCHEME" android:host="$DEEPLINK_4_HOST" android:pathPrefix="$ANDROID_4_PATH_PREFIX"/>
+  <data android:scheme="$DEEPLINK_5_SCHEME" android:host="$DEEPLINK_5_HOST" android:pathPrefix="$ANDROID_5_PATH_PREFIX"/>
+</intent-filter> to your AndroidManifest.xml to work

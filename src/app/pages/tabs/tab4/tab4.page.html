@@ -1,10 +1,15 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="light">
-    <ion-title class="ion-padding ion-text-center">Team Calendar
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-toolbar color="light">
+  <ion-title class="ion-text-center">Team Calendar
+  </ion-title>
+</ion-toolbar>
 
 <ion-content>
-  <ejs-schedule readonly="true" [eventSettings]="eventSettings"> </ejs-schedule>
+  <ejs-schedule readonly="true" [eventSettings]="eventSettings"> 
+    <e-views>
+      <e-view option="Day"></e-view>
+      <e-view option="Week"></e-view>
+      <e-view option="Month"></e-view>
+      <e-view option="Agenda"></e-view>
+    </e-views>    
+  </ejs-schedule>
 </ion-content>

@@ -30,7 +30,6 @@ export class Tab4Page implements OnInit {
       .pipe(
         take(1),
         tap((data: SyncfusionCalEvent[]) => {
-          console.log("data:", data);
           this.eventSettings= { dataSource: data};
         })
       )

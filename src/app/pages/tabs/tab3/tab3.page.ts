@@ -139,20 +139,26 @@ export class Tab3Page implements OnInit, OnDestroy {
         tap((data: TeamChatMessage[]) => {
           if (this.chatService.teamChatData?.length > 0) {
             if (data.length === 0) {
-              this.infiniteScroll.disabled = true;
+              if (this.infiniteScroll){
+                this.infiniteScroll.disabled = true;
+              }
             } else {
               this.chatService.teamChatData.unshift(...data);
             }
           } else {
             this.chatService.teamChatData = data;
             if (data.length < requestModel.pagingParams.rowsPerPage) {
-              this.infiniteScroll.disabled = true;
+              if (this.infiniteScroll){
+                this.infiniteScroll.disabled = true;
+              }
             }
 
             this.chatService.ScrollToBottom(this.content);
           }
-
-          event.target.complete();
+          
+          if (event){
+            event.target.complete();
+          }
         })
       )
       .subscribe();
