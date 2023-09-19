@@ -1,8 +1,8 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="tertiary">
     <ion-title>Available Teams</ion-title>
     <ion-buttons slot="end">
-      <ion-button fill="clear" (click)="signOut()">
+      <ion-button fill="clear" (click)="signOut()">Log Out
         <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -22,10 +22,12 @@
       >
         <ion-row class="role-item-wrapper ion-padding">
           <ion-col class="details-wrapper">
-            <h2 class="details-name">{{role.jobName}}</h2>
+            <h2 class="details-name" *ngIf="role.teamName.includes(role.agegroupName)">{{role.teamName}}</h2>
+            <h2 class="details-name" *ngIf="!role.teamName.includes(role.agegroupName)">{{role.agegroupName}}:{{role.teamName}}</h2>
+            <!-- <h2 >{{role.jobName}}</h2>
             <p class="details-description">
               {{role.agegroupName}}:{{role.teamName}}
-            </p>
+            </p> -->
           </ion-col>
           <ion-col size="2">
             <img class="job-logo" width="80" [src]="role.jobLogoUrl" />

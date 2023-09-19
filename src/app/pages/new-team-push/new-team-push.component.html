@@ -12,10 +12,14 @@
 </ion-header>
 <ion-content class="ion-padding">
   <form [formGroup]="form" (ngSubmit)="addPush()" class="ion-padding-top">
-    <ion-item class="input-item">
-      <ion-label [color]="'tertiary'" position="floating">Push Text</ion-label>
-      <ion-input placeholder="push text here" color="primary" formControlName="pushText" clearInput></ion-input>
-    </ion-item>
+    <ion-input
+      counter="true"
+      label="Push Text"
+      labelPlacement="floating"
+      placeholder="push text..."
+      formControlName="pushText"
+      clearInput="true"
+    ></ion-input>
     <div class="error-container">
       <ng-container *ngFor="let validation of formValidators.pushText">
         <div class="error-message"

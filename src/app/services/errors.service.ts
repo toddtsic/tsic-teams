@@ -31,7 +31,9 @@ export class ErrorsService {
     position:"top"|"bottom"|"middle" | undefined, 
     result?: any
   ) {
+    debugger;
     let toast = null;
+
     switch (result.status){
       case 401:
         toast = await this.toastController.create({
@@ -42,18 +44,30 @@ export class ErrorsService {
           duration: duration,
           cssClass: "custom-toaster"
         });
-            break;
+        break;
       default:
-        toast = await this.toastController.create({
-          header: header,
-          message: result.message,
-          position: position,
-          color: errorType,
-          duration: duration,
-          cssClass: "custom-toaster"
-        });
-            break;
+        if (result?.statusText === 'Bad Request' && result?.error?.message){
+          toast = await this.toastController.create({
+            header: 'Error',
+            message: result?.error?.message,
+            position: position,
+            color: errorType,
+            duration: duration,
+            cssClass: "custom-toaster"
+          });
+        } else {
+          toast = await this.toastController.create({
+            header: header,
+            message: result.message,
+            position: position,
+            color: errorType,
+            duration: duration,
+            cssClass: "custom-toaster"
+          });  
+        }    
+        break;
     }
+
     if (toast){
       toast.present();
     }

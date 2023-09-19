@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "330996497478",
+    "project_id": "tsic-teams",
+    "storage_bucket": "tsic-teams.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330996497478:android:b937242f2bffc6622fde47",
+        "android_client_info": {
+          "package_name": "com.teamsportsinfo.tsicteams"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "330996497478-7ddvgjlj5rea0ti95113emud1rlns257.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWQRSwvV8o1fgjR41xOIneqMxLSHpDtQ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "330996497478-7ddvgjlj5rea0ti95113emud1rlns257.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "330996497478-75ucu2v5tse9icgp1oop9jkqb0fbuj9g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.teamsportsinfo.tsicteams"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

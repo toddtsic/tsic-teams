@@ -37,24 +37,20 @@ export class AppComponent implements OnInit{
   ) {  
   }
 
-  async ngOnInit(): Promise<void> {
-    await SplashScreen.show();    
-  
-    if (environment.production) {
-      const ai = await App.getInfo();
-      this.appVersion = ai.version;
-    }
-
+  async ngOnInit(): Promise<void> {  
     this.isIOS = this.platform.is('ios');
 
-    this.platform.ready()
-      .then(async (val) => {
-        const thisPlatform = Capacitor.getPlatform();
-        if (thisPlatform !== 'web') {
-          this.initPushNotifications();
-        }
-        await SplashScreen.hide();    
-      });
+    const capIsNative = Capacitor.isNativePlatform();
+    if (capIsNative) {
+      await SplashScreen.show();    
+
+      const ai = await App.getInfo();
+      this.appVersion = ai.version;
+
+      this.initPushNotifications();
+
+      await SplashScreen.hide();    
+    }
   }
 
   initPushNotifications() {
@@ -62,58 +58,61 @@ export class AppComponent implements OnInit{
     // iOS will prompt user and return if they granted permission or not
     // Android will just grant without prompting
     PushNotifications.requestPermissions().then(result => {
+      console.log("requestPermissions result", result);
       if (result.receive === 'granted') {
         // Register with Apple / Google to receive push via APNS/FCM
         PushNotifications.register()
           .then((res) => {
+            this.addPushNotificationListeners();
           });
       } else {
         // Show some error
         console.log('no permission for push:', result);
       }
-
-      PushNotifications.addListener(
-        'registration',
-        async (token: Token) => {
-          const currentDeviceToken = await this.storageService.getDevice_PushNotification_Token();
-
-          console.log('PushNotification.register token:', token);
-          console.log('Device token from storage:', currentDeviceToken);
-
-          if (currentDeviceToken && currentDeviceToken != token.value) {
-            const requestModel: SwapPhone_DeviceTokens_RequestModel = {
-              oldDeviceToken: currentDeviceToken,
-              newDeviceToken: token.value
-            }
-            this.storageService.swapPhone_DeviceTokens(requestModel)
-              .subscribe();
-          };
-
-          this.storageService.setDevice_PushNotification_Token(token.value);
-        },
-      );
-
-      PushNotifications.addListener('registrationError', (error: any) => {
-        alert('Error on push notification registration: ' + JSON.stringify(error));
-      });
-
-      PushNotifications.addListener(
-        'pushNotificationReceived',
-        async (notification: PushNotificationSchema) => {
-          await this.processReceivedNotification(notification);
-          // alert('Push received: ' + JSON.stringify(notification));
-        },
-      );
-
-      PushNotifications.addListener(
-        'pushNotificationActionPerformed',
-        async (notification: ActionPerformed) => {
-          // alert('Push action performed: ' + JSON.stringify(notification));
-          await this.processReceivedNotification(notification.notification);
-        },
-      );
-
     });
+  }
+
+  addPushNotificationListeners(){
+    PushNotifications.addListener(
+      'registration',
+      async (token: Token) => {
+        const currentDeviceToken = await this.storageService.getDevice_PushNotification_Token();
+
+        console.log('PushNotification.register token:', token);
+        console.log('Device token from storage:', currentDeviceToken);
+
+        if (currentDeviceToken && currentDeviceToken != token.value) {
+          const requestModel: SwapPhone_DeviceTokens_RequestModel = {
+            oldDeviceToken: currentDeviceToken,
+            newDeviceToken: token.value
+          }
+          this.storageService.swapPhone_DeviceTokens(requestModel)
+            .subscribe();
+        };
+
+        this.storageService.setDevice_PushNotification_Token(token.value);
+      },
+    );
+
+    PushNotifications.addListener('registrationError', (error: any) => {
+      alert('Error on push notification registration: ' + JSON.stringify(error));
+    });
+
+    PushNotifications.addListener(
+      'pushNotificationReceived',
+      async (notification: PushNotificationSchema) => {
+        await this.processReceivedNotification(notification);
+        // alert('Push received: ' + JSON.stringify(notification));
+      },
+    );
+
+    PushNotifications.addListener(
+      'pushNotificationActionPerformed',
+      async (notification: ActionPerformed) => {
+        // alert('Push action performed: ' + JSON.stringify(notification));
+        await this.processReceivedNotification(notification.notification);
+      },
+    );
   }
 
   async processReceivedNotification(notification: PushNotificationSchema) {

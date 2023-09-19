@@ -46,6 +46,7 @@ export class LoginPage implements OnInit {
     this.authenticationService.TeamChat_ValidateUser(requestModel)
       .pipe(
         tap((response: ITeamChat_User_RoleData_Grouped[]) => {
+          debugger;
           if (response) {
             this.storageService.setUser_AvailableRoles(response);
             this.storageService.setUser_LastLogin({

@@ -11,16 +11,14 @@
   <form [formGroup]="credentialsForm">
     <div class="ion-padding">
       <ion-input
-        fill="outline"
-        shape="round"
+        fill="solid"
         counter="true"
         label="Username"
         labelPlacement="floating"
         placeholder="Username"
         formControlName="username"
-        type="text"
+        clearInput="true"
         autofocus
-        class="ion-padding"
       ></ion-input>
     </div>
     <div
@@ -35,8 +33,7 @@
     </div>
     <div class="ion-padding">
         <ion-input
-          fill="outline"
-          shape="round"
+          fill="solid"
           counter="true"
           label="Password"
           labelPlacement="floating"
@@ -44,7 +41,6 @@
           type="password"
           formControlName="password"
           clearInput="true"
-          class="ion-padding"
         ></ion-input>
     </div>
     <div
