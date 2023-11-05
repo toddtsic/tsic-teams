@@ -12,7 +12,7 @@ export const environment = {
     messagingSenderId: "330996497478",
     appId: "1:330996497478:web:f05f708e9ac703952fde47"
   },
-  apiUrl: 'https://foundashbag30.conveyor.cloud',
+  apiUrl: 'https://littlegoldbook5.conveyor.cloud',
   appShellConfig: {
     debug: false,
     networkDelay: 0
